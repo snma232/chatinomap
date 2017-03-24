@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title></title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.34.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.34.0/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        body { margin:0; padding:0; }
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+    </style>
+</head>
+<body>
+
+<div id='map'></div>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1Ijoic25tYXJ0aW5lejAzIiwiYSI6ImNqMG83cmxwbjAwdXQzMnBiMXdzcjR4eGkifQ.GqSPI_H0jbdgx3at74GrFg'; //replace with your accesstoken
+var map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/snmartinez03/cj0o8k0h6007x2rpni2kowx0i',
+      center: [-97.192283, 16.259619], // starting position
+      zoom: 9.68,
+      //bearing: 48.05
+    });
+
+    map.on('click', function(e) {
+  var features = map.queryRenderedFeatures(e.point, {
+    layers: ['waypnts'] 
+  });
+
+  if (!features.length) {
+    return;
+  }
+
+  var feature = features[0];
+
+  var popup = new mapboxgl.Popup({ offset: [0, -15] })
+    .setLngLat(feature.geometry.coordinates)
+    .setHTML('<h3>' + "hello world" + '</h3>')
+            //'<p>' + feature.properties.ADDRESS + ", " + feature.properties.City + " " + feature.properties.State + '</p>' +
+//            '<hr>' +
+//            '<ul>' +
+//            '<li>' + feature.properties.instore + '</li>' +
+//            '<li>' + feature.properties.entryway + '</li>' +
+//            '<li>' + feature.properties.bathroom + '</li>' +
+//            '<li>' + feature.properties.visual + '</li>' +
+//            '<li>' + feature.properties.outlets + '</li>' +
+//            '</ul>'+
+//            '</p>')
+             
+    .setLngLat(feature.geometry.coordinates)
+    .addTo(map);
+});
+</script>
+
+</body>
+</html>
